@@ -13,7 +13,7 @@ services:
     ports:
       - $FRONTEND_PORT:3000
     working_dir: $FRONTEND_WORK_DIR
-    command: sh -c "cd frontend && npm run start"
+    command: sh -c "cd frontend && npm install && npm run start"
 
   api:
     container_name: api
