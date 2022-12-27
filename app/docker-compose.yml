@@ -1,0 +1,50 @@
+version: "3"
+services:
+  frontend:
+    image: node:lts
+    container_name: frontend
+    tty: true
+    expose:
+      - 3000
+    volumes:
+      - $FRONTEND_DIR:/usr/src/app
+    environment:
+      - WATCHPACK_POLLING=true
+    ports:
+      - $FRONTEND_PORT:3000
+    working_dir: $FRONTEND_WORK_DIR
+    command: sh -c "cd frontend && npm run start"
+
+  api:
+    container_name: api
+    # tty: true 不要っぽい
+    build:
+      context: .
+      dockerfile: ./api/Dockerfile
+    expose:
+      - 8080
+      # - 9229
+    environment:
+      TZ: $TZ
+      # DEBUG: $API_DEBUG
+      # DATABASE_URL: $API_DATABASE_URL alchemyとの接続時に必要？
+    ports: 
+      - $API_PORT:8080
+      # - $API_DEBUG_PORT:9229 debug用
+    volumes:
+      - $API_DIR:/api
+  db:
+    image: mysql:8
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASS}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+      TZ: ${TZ}
+    ports:
+     - $DB_PORT:3306
+    volumes:
+        - ./mysql/db-store:/var/lib/mysql
+        - ./mysql/conf/my.cnf:/etc/mysql/conf.d/my.cnf
