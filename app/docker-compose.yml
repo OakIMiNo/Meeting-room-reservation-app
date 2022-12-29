@@ -15,12 +15,12 @@ services:
     working_dir: $FRONTEND_WORK_DIR
     command: sh -c "cd frontend && npm install && npm run start"
 
-  api:
+  backend:
     container_name: api
     # tty: true 不要っぽい
     build:
       context: .
-      dockerfile: ./api/Dockerfile
+      dockerfile: ./backend/Dockerfile
     expose:
       - 8080
       # - 9229
@@ -32,7 +32,7 @@ services:
       - $API_PORT:8080
       # - $API_DEBUG_PORT:9229 debug用
     volumes:
-      - $API_DIR:/api
+      - $API_DIR:/src
   db:
     image: mysql:8
     container_name: mysql
