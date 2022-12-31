@@ -1,8 +1,14 @@
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, declarative_base
+from api.utils.setting import settings
 
-# 下記はenvファイル作成したほうがよさそうだけど一旦ここに記載
-ASYNC_DB_URL = "mysql+aiomysql://root:rootpass@db:3306/mydb?charset=utf8"
+user_name = settings.ROOT_NAME
+user_pass = settings.ROOT_PASS
+db_name = settings.DB_NAME
+
+# 10行目は削除予定
+# ASYNC_DB_URL = "mysql+aiomysql://root:rootpass@db:3306/mydb?charset=utf8"
+ASYNC_DB_URL = f'mysql+aiomysql://{user_name}:{user_pass}@db:3306/{db_name}?charset=utf8'
 
 async_engine = create_async_engine(ASYNC_DB_URL, echo=True)
 async_session = sessionmaker(
