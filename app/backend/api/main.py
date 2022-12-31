@@ -5,6 +5,8 @@ from starlette.middleware.cors import CORSMiddleware
 
 # routersディレクトリ以下ファイルを増やしたら追加
 from api.routers import rooms
+from api.routers import auth
+
 
 # log設定
 from api.utils.logger import setup_logger
@@ -26,6 +28,7 @@ app.add_middleware(
 
 # routersディレクトリ以下ファイル作成で下記追加
 app.include_router(rooms.router)
+app.include_router(auth.router)
 
 
 # 以下は初期サンプル 後々削除予定
