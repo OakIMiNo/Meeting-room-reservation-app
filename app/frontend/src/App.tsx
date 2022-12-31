@@ -1,27 +1,17 @@
 import React from "react";
 import "./App.css";
-import ButtonIcon from "./ButtonIcon";
-import Login from "./Login";
-import ReservedDetails from "./ReservedDetails";
-import SelectForm from "./SelectForm";
+import { Route, Routes } from "react-router-dom";
+import SignIn from "./pages/SignIn";
 
-function App() {
+const App = (): JSX.Element => {
   return (
     <>
-      <h1>Booking meeting rooms</h1>
-      <p>ログインコンポーネント</p>
-      <Login />
-      <br />
-      <p>予約詳細コンポーネント</p>
-      <ReservedDetails />
-      <br />
-      <p>ボタンコンポーネント</p>
-      <ButtonIcon />
-      <br />
-      <p>選択フォーム</p>
-      <SelectForm />
+      {/* ページ作成したら追加する */}
+      <Routes>
+        <Route path="/signin" element={<SignIn />} />
+      </Routes>
     </>
   );
-}
+};
 
 export default App;
