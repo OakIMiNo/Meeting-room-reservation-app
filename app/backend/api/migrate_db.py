@@ -3,6 +3,7 @@ from api.utils.setting import settings
 
 # 対象テーブルが変更されたらfrom変更して使いまわす？
 from api.models.rooms import Base
+# from api.models.reservations import Base
 
 user_name = settings.ROOT_NAME
 user_pass = settings.ROOT_PASS
