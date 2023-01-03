@@ -84,11 +84,11 @@ def get_user(db, username: str):
 # dbから取得したuser情報を返す
 def authenticate_user(fake_db, username: str, password: str):
     user = get_user(fake_db, username)
+    print("authenticate_user",username, password)
     if not user:
         return False
     if not verify_password(password, user.hashed_password):
         return False
-    print("authenticate_user",user)
     return user
 
 # 新しいアクセストークンを作成する
@@ -114,6 +114,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    print("token",token)
     # jwtのdecode 復元ぽいな
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
@@ -122,6 +123,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
             raise credentials_exception
         token_data = TokenData(username=username)
     except JWTError:
+        print("JWTError")
         raise credentials_exception
     user = get_user(fake_users_db, username=token_data.username)
     if user is None:
