@@ -10,9 +10,9 @@ def setup_logger(name):
     fh_formatter = logging.Formatter('%(levelname)s %(asctime)s [%(name)s] %(message)s')
     fh.setFormatter(fh_formatter)
     
-    # コンソールに出力するログレベルをinfoに設定 挙動みて変更可
+    # コンソールに出力するログレベルをdebugに設定 挙動みて変更可
     ch = logging.StreamHandler()
-    ch.setLevel(logging.INFO)
+    ch.setLevel(logging.DEBUG)
     ch_formatter = logging.Formatter(
         '%(asctime)s - %(levelname)s - %(message)s', '%Y-%m-%d %H:%M:%S'
         )

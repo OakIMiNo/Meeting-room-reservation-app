@@ -28,7 +28,7 @@ services:
       TZ: $TZ
       # DEBUG: $API_DEBUG
       # DATABASE_URL: $API_DATABASE_URL alchemyとの接続時に必要？
-    ports: 
+    ports:
       - $API_PORT:8080
       # - $API_DEBUG_PORT:9229 debug用
     volumes:
@@ -44,7 +44,7 @@ services:
       MYSQL_PASSWORD: ${DB_PASS}
       TZ: ${TZ}
     ports:
-     - $DB_PORT:3306
+      - $DB_PORT:3306
     volumes:
-        - ./mysql/db-store:/var/lib/mysql
-        - ./mysql/conf/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./mysql/db-store:/var/lib/mysql
+      - ./mysql/conf/my.cnf:/etc/mysql/conf.d/my.cnf
