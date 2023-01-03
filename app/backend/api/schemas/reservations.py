@@ -7,10 +7,16 @@ from pydantic import BaseModel, Field # バリデーションチェック
 # BaseModelクラスを継承
 class Reservation(BaseModel):
   id: Optional[int] # idフィールドが存在しなくてもok/型ヒント=int
+  start_dateTime: Optional[str]
+  end_dateTime: Optional[str]
+
   room_id: Optional[int]
   user_id: Optional[int]
-  start_dateTime: Optional[str]
-  start_dateTime: Optional[str]
+  room_name: Optional[str]
+  user_name: Optional[str]
+
+  class Config:
+    orm_mode = True
 
 
 # POSTのrequest
@@ -26,7 +32,7 @@ class ReservationCreate(BaseModel):
 # POSTのresponse
 # ReservationCreateを継承
 class ReservationCreateResponse(ReservationCreate):
-    id: int
+  id: int
 
-    class Config:
-        orm_mode = True # このレスポンススキーマ ReservationCreateResponse が、暗黙的にORMを受け取り、レスポンススキーマに変換する
+  class Config:
+      orm_mode = True # このレスポンススキーマ ReservationCreateResponse が、暗黙的にORMを受け取り、レスポンススキーマに変換する
