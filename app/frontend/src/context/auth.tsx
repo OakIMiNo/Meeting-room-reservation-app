@@ -9,33 +9,16 @@ export const useAuth = () => useContext(AuthContext)
 export const AuthProvider = (props:any) =>
 {
   const [user, setUser] = useState<any>(null);
-  console.log("auth.tsx,user",user)
+  //loading中はloading画面を表示したいけど上手くいかないので保留
+  const [ isLoading, setLoading ] = useState<boolean>(true)
   const navigate = useNavigate();
   
-  //tokenあり->apiからuser情報を取得。
-  // const isAuthenticated = () =>
-  // {
-  //   console.log("isAuthenticated実行")
-  //   const token:any = localStorage.getItem("token")
-  //             if (token) {
-  //           const headers = {
-  //             Authorization: `Bearer ${token}`,
-  //           };
-  //           axios
-  //             .get("http://localhost:8080/users/me", { headers })
-  //             .then((res) => setUser(res.data));
-  //         } else {
-  //               setUser(null)
-  //               navigate("/signin");
-  //         }
-  // }
-  
-
-    useEffect(() =>
-    {
-      const token = localStorage.getItem("token")
-      console.log(token)
-        const isAuthenticated = () => {
+  const isAuthenticated = () =>
+  {
+    setLoading(false);
+    console.log("isAuthenticated", isLoading);
+    const token = localStorage.getItem("token")
+    console.log(token)
           if (token) {
             const headers = {
               Authorization: `Bearer ${token}`,
@@ -45,48 +28,68 @@ export const AuthProvider = (props:any) =>
               .then((res) => setUser(res.data));
           } else {
             setUser(null);
-          }
-        };
-        //  isAuthenticated()
-        return isAuthenticated;
-    },[]);
-    
-  //login情報をapi送付し、apiから送付されたtokenをlocalStorageにセットする
-    const login = async (useName:any,password:any) => {
-        const params = new URLSearchParams();
-        params.append("username", useName);
-        params.append("password", password);
-
-        const config = {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          }
-        }
-
-        const response:any =  await axios
-          .post("http://localhost:8080/token", params, config)
-          .then((res) =>  res.data);
-          
-          const token = response.access_token
-          if (token)
-          {
-            localStorage.setItem("token", token);
-        }
+            navigate("/signin")
+    }
   }
   
-  console.log(localStorage)
-  //logout
-    const logout = () =>
-    {
-      localStorage.removeItem("token")
-      setUser(null)
-      //
-      navigate("/signin")
+  console.log("isLoading", isLoading)
+  console.log(user)
+
+  const isRegister = async (userName: string, email: string, password: string) =>
+  {
+    const body = {
+      name: userName,
+      email: email,
+      password: password
     }
+
+    await axios
+      .post("http://localhost:8080/register", body)
+      .then((res) => res.data)
+  }
+  
+  //login情報をapi送付し、apiから送付されたtokenをlocalStorageにセットする
+  const login = async (email:any,password:any) => {
+    const params = new URLSearchParams();
+    params.append("username", email);
+    params.append("password", password);
+    const config = {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    }
+    const response: any = await axios
+      .post("http://localhost:8080/token", params, config)
+      .then((res: any) =>
+      {
+        console.log("res",res)
+        console.log("token", res.data.access_token);
+        localStorage.setItem("token", res.data.access_token)
+        console.log(localStorage)
+      });
+    // const token = response.data.access_token
+
+    // if (token)
+    // {
+    //   localStorage.setItem("token", token);
+    //   console.log(localStorage)
+    // }
+  }
+  
+  const logout = () =>
+  {
+    localStorage.removeItem("token")
+    setUser(null)
+    //
+    navigate("/signin")
+  }
     
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
-      {user === undefined? <h1>loading</h1> : props.children }
+    <AuthContext.Provider
+      value={{ user, login, logout, isAuthenticated, isRegister, isLoading }}
+    >
+      {/* {isLoading ? <h1>loading</h1> : props.children} */}
+      {props.children}
     </AuthContext.Provider>
   );
 }

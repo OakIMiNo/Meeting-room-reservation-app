@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Resolver } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -26,8 +26,9 @@ const resolver: Resolver<FormValues> = async (values) => {
 
 const SignIn: React.FC = () =>
 {
-  const {user,login,isAuthenticated} = useAuth()
+  const { user, login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const [message,setMessage] = useState("")
 
   // console.log(isAuthenticated);
 
@@ -38,23 +39,28 @@ const SignIn: React.FC = () =>
   } = useForm<FormValues>({
     resolver: resolver,
   });
-  const onSubmit = handleSubmit(async (data) =>
-  {
+  const onSubmit = handleSubmit(async (data) => {
     await login(data.useName, data.password)
-      // .then(() => isAuthenticated())
-      .then(() =>  navigate("/mypage"))
-      .catch((e: any) => console.log(e))
+      .then((res:any) =>
+      {
+        console.log("pass")
+        navigate("/mypage")
+      })
+      .catch((e: any) =>
+      {
+        setMessage("emailもしくはpasswordの入力誤り、あるいは退会されています")
+      });
   });
 
-  //johndoe secret
+  //test@example.com test
   return (
     <>
       <div className="App">
         <h1>SignIn</h1>
         <form onSubmit={onSubmit}>
           <div>
-            <label>User Name</label>
-            <input {...register("useName")} placeholder="useName" />
+            <label>email Address </label>
+            <input {...register("useName")} placeholder="email address" />
             {errors?.useName && <p>{errors.useName.message}</p>}
           </div>
 
@@ -65,6 +71,7 @@ const SignIn: React.FC = () =>
 
           <input type="submit" />
         </form>
+        {message}
       </div>
     </>
   );

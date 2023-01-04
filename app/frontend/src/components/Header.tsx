@@ -13,8 +13,6 @@ export default function ButtonAppBar()
     const { user, logout } = useAuth()
     const navigate = useNavigate();
     
-  console.log(logout)
-  console.log(user)
   const handleHome = () => navigate("/")
   const handleSignin = () => navigate("/signin")
   const handleMyPage = () => navigate("/mypage");
