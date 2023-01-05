@@ -25,10 +25,15 @@ export const AuthProvider = (props:any) =>
             };
             axios
               .get("http://localhost:8080/users/me", { headers })
-              .then((res) => setUser(res.data));
-          } else {
-            setUser(null);
-            navigate("/signin")
+              .then((res) => setUser(res.data))
+              .catch((e) =>
+              {
+                setUser(null);
+                navigate("/signin");
+              });
+          // } else {
+          //   setUser(null)
+          //   navigate("/signin")
     }
   }
   
@@ -58,7 +63,7 @@ export const AuthProvider = (props:any) =>
         "Content-Type": "application/x-www-form-urlencoded"
       }
     }
-    const response: any = await axios
+    await axios
       .post("http://localhost:8080/token", params, config)
       .then((res: any) =>
       {
