@@ -14,7 +14,7 @@ const MyPage: React.FC = () => {
 
   useEffect (() =>
   {
-    isAuthenticated();
+    isAuthenticated()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
