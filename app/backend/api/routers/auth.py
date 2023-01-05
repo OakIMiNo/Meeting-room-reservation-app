@@ -203,7 +203,6 @@ async def read_users_me(current_user: User = Depends(get_current_active_user)):
     return current_user
 
 
-#新規登録
 @router.post("/register")
 # crud
 async def create_user(

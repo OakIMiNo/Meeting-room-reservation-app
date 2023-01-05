@@ -6,7 +6,9 @@ import { useAuth } from "../context/auth";
 // import style from "./../ styles / SignIn.module.css";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
+
 import Header from "./../components/Header";
+
 
 const Home: React.FC = () => {
   const [rooms ,setRooms ] = useState([])
@@ -21,7 +23,9 @@ const Home: React.FC = () => {
     
   return (
     <>
+
       <Header />
+
       <Box sx={{ flexGrow: 1, p: 4 }}>
         <Grid
           container
