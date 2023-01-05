@@ -7,6 +7,8 @@ from starlette.middleware.cors import CORSMiddleware
 from api.routers import rooms
 from api.routers import auth
 from api.routers import reservations
+from api.routers import areas
+
 
 
 # log設定
@@ -31,6 +33,8 @@ app.add_middleware(
 app.include_router(rooms.router)
 app.include_router(auth.router)
 app.include_router(reservations.router)
+app.include_router(areas.router)
+
 
 
 # 以下は初期サンプル 後々削除予定
