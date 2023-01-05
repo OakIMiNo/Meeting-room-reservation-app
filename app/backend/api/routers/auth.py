@@ -84,9 +84,6 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app = FastAPI()
 
-# 受け取ったパスワードが保存されているハッシュと一致するかどうかを検証する
-# plain_passwordはハッシュ化されていないパスワードな気がする…
-
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
@@ -205,7 +202,6 @@ async def read_users_me(current_user: User = Depends(get_current_active_user)):
     return current_user
 
 
-#新規登録
 @router.post("/register")
 # crud
 async def create_user(
@@ -230,7 +226,7 @@ async def create_user(
     return user
 
 # crud
-async def crud_update_task(
+async def crud_update_user(
     user_update: UserPutDisabled,
     original: users_model.User,
     db: AsyncSession = Depends(get_db)
@@ -247,7 +243,7 @@ async def crud_update_task(
     await db.refresh(db_user)
     return db_user
 
-# 退会押下でdisabledをTrueに更新
+# front退会押下でdisabledをTrueに更新
 @router.put("/users/me/")
 async def update_user(
     user_body: UserPutDisabled, 
@@ -258,7 +254,7 @@ async def update_user(
     print("current_user", current_user)
     #crud update_user
     original = current_user
-    return await crud_update_task(user_body, original, db)
+    return await crud_update_user(user_body, original, db)
 
 
 
