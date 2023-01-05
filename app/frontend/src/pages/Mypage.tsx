@@ -4,13 +4,16 @@ import axios from "axios";
 import { useAuth } from "./../context/auth"
 import Button from "@mui/material/Button";
 import { handleBreakpoints } from "@mui/system";
+import { useNavigate } from "react-router-dom";
+import Header from "./../components/Header";
 
 
 
 const MyPage: React.FC = () => {
     
-    const { user, isAuthenticated, isLoading } = useAuth();
-    
+  const { user, isAuthenticated, isLoading } = useAuth();
+  const [message, setMessage] = useState("")
+  const navigate = useNavigate();
 
   useEffect (() =>
   {
@@ -18,14 +21,16 @@ const MyPage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-   console.log(isLoading);
   
   const handlePutDisabled = () =>
   {
+    const navigateFn = () => {
+      navigate("/signin");
+    };
+
     const token = localStorage.getItem("token")
     if (token)
     {
-    
       const body = { disabled: "true" }
      
       const config = {
@@ -35,12 +40,14 @@ const MyPage: React.FC = () => {
       }
       axios
         .put("http://localhost:8080/users/me", body, config)
-        .then((res) => console.log(res));
+        .then((res) => setMessage("退会しました"))
+        .then(() => setTimeout(navigateFn, 1000));
     }
   }
   
   return (
     <>
+      <Header />
       <div className="App">
         <h1>Mypage</h1>
         {user && (
@@ -50,6 +57,7 @@ const MyPage: React.FC = () => {
             <Button onClick={handlePutDisabled}>退会</Button>
           </div>
         )}
+        {message}
       </div>
     </>
   );

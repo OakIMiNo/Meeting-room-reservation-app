@@ -14,5 +14,6 @@ class User(Base):
     disabled = Column(Boolean, default=False, nullable=False)
     admin = Column(Boolean, default=False, nullable=False)
 
+    reservations = relationship("Reservation", back_populates="user")
 
-#reservations = relationship("Reservation", back_populates="user_id")
+

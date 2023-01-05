@@ -1,10 +1,13 @@
 from sqlalchemy import create_engine
 from api.utils.setting import settings
 
-# 対象テーブルが変更されたらfrom変更して使いまわす？
+
 from api.models.rooms import Base
-# from api.models.reservations import Base
-# from api.models.users import Base
+
+from api.models.reservations import Base
+from api.models.users import Base
+from api.models.areas import Base
+
 
 user_name = settings.ROOT_NAME
 user_pass = settings.ROOT_PASS

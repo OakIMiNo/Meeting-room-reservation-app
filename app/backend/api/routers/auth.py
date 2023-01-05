@@ -85,6 +85,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 app = FastAPI()
 
 
+
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
@@ -214,8 +215,8 @@ async def create_user(
         "name": user_body.name,
         "email": user_body.email,
         "hashed_password": hashed_password,
-    # 以下は一旦falseで
         "disabled": False,
+    # 管理者はtrue
         "admin": False
     }
     print("create_data", create_data)

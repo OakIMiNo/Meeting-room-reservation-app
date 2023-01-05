@@ -23,7 +23,9 @@ export function InputDate() {
             onChange={handleChange}
             inputFormat="yyyy/MM/dd"
             mask="____/__/__"
-            renderInput={(params) => <TextField {...params} />}
+            renderInput={(params) =>
+              <TextField {...params} />
+            }
             // 前日までが選択不可になる
             minDate={referenceDate}
           />

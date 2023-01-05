@@ -56,11 +56,11 @@ const SignUp: React.FC = () =>
   return (
     <>
       <div className="App">
-        <h1>Sign up</h1>
+        <h1>登録</h1>
         <form onSubmit={onSubmit}>
           <div>
-            <label>Your Name </label>
-            <input {...register("userName")} placeholder="email address" />
+            <label>Your Name</label>
+            <input {...register("userName")} placeholder="your name" />
             {/* {errors?.userName && <p>{errors.userName.message}</p>} */}
           </div>
           <div>

@@ -1,4 +1,6 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
+
+from sqlalchemy import Column, Integer, String, Boolean ,ForeignKey
+
 
 from sqlalchemy.orm import relationship
 
@@ -15,4 +17,8 @@ class Room(Base):
     description = Column(String(1000), nullable=False)
     disabled = Column(Boolean, default=False,nullable=False)
 
-    
+
+    area_id = Column(Integer, ForeignKey("areas.id"))
+    reservations = relationship("Reservation", back_populates="room")
+    areas = relationship("Area", back_populates="room")
+
