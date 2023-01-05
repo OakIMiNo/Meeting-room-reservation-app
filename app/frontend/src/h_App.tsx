@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
-import ButtonIcon from "./ButtonIcon";
-import Login from "./Login";
-import ReservedDetails from "./ReservedDetails";
-import SelectForm from "./SelectForm";
+import ButtonIcon from "./components/ButtonIcon";
+import Login from "./components/Login";
+import ReservedDetails from "./components/ReservedDetails";
+import SelectForm from "./components/SelectForm";
 
 function App() {
   return (
