@@ -3,6 +3,7 @@ from api.utils.setting import settings
 
 
 from api.models.rooms import Base
+
 from api.models.reservations import Base
 from api.models.users import Base
 from api.models.areas import Base

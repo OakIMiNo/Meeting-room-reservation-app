@@ -10,7 +10,9 @@ class Room(BaseModel):
     address: str = Field(example="東京都新宿区西新宿××")
     description: str = Field(example="example 駅から徒歩3分、××、△△完備")
     disabled: bool = Field(example=False)
+
     area_id: int = Field(example=4)
+
 
     class Config:
       orm_mode = True
@@ -24,7 +26,9 @@ class CreateRoom(BaseModel):
     address: str = Field(example="東京都新宿区西新宿××")
     description: str = Field(example="example 駅から徒歩3分、××、△△完備")
     disabled: bool = Field(example=False)
+
     area_id: int = Field(example=4)
+
 
 
     class Config:
@@ -36,7 +40,9 @@ class UpdateRoom(BaseModel):
     img_url: Union[str, None] = None
     address: Union[str, None] = None
     disabled: Union[bool , None] = None
+
     area_id:  Union[int, None] = None
+
 
 
     class Config:

@@ -14,11 +14,11 @@ class Reservation(Base):
     time = Column(Time)
     dateTime = Column(DateTime)
 
-    room_id = Column(Integer, ForeignKey("rooms.id"))
-    user_id = Column(Integer, ForeignKey("users.id"))
+    # room_id = Column(Integer, ForeignKey("rooms.id"))
+    # user_id = Column(Integer, ForeignKey("users.id"))
 
-    room = relationship("Room", back_populates="reservations")
-    user = relationship("User", back_populates="reservations")
+    # room = relationship("Room", back_populates="reservations")
+    # user = relationship("User", back_populates="reservations")
 # Column 第一引数にカラムの型、第２引数以降にカラムの設定。
 
 
