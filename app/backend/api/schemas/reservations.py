@@ -1,3 +1,4 @@
+import datetime
 from typing import Optional
 from pydantic import BaseModel, Field # バリデーションチェック
 
@@ -7,8 +8,12 @@ from pydantic import BaseModel, Field # バリデーションチェック
 # BaseModelクラスを継承
 class Reservation(BaseModel):
   id: Optional[int] # idフィールドが存在しなくてもok/型ヒント=int
-  start_dateTime: Optional[str]
-  end_dateTime: Optional[str]
+
+  start_dateTime_: Optional[str]
+  end_dateTime_: Optional[str]
+  date: Optional[datetime.date]
+  time: Optional[datetime.time]
+  dateTime: Optional[datetime.datetime]
 
   room_id: Optional[int]
   user_id: Optional[int]
@@ -23,6 +28,11 @@ class Reservation(BaseModel):
 class ReservationCreate(BaseModel):
   room_id: int # プロパティが存在する/値がNoneではない/int型
   user_id: int
+
+  date: Optional[datetime.date]
+  time: Optional[datetime.time]
+  dateTime: Optional[datetime.datetime]
+
   start_dateTime: str = Field("2023/1/1_10:00", example="2023/1/1_10:00")
   end_dateTime: str = Field("2023/1/1_12:00", example="2023/1/1_12:00")
   # Field(param1, example=param2) フィールドに関する付加情報を記述。
