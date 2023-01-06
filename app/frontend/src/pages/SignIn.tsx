@@ -45,7 +45,6 @@ const SignIn: React.FC = () =>
     await login(data.useName, data.password)
       .then((res:any) =>
       {
-        console.log("pass")
         navigate("/mypage")
       })
       .catch((e: any) =>

@@ -40,7 +40,7 @@ const RoomsList: React.FC = () => {
       <Header />
       <Container maxWidth="sm">
         <Box sx={{ bgcolor: "#ffff" }}>
-          <ImageList sx={{ width: 500, height: 450 }}>
+          <ImageList sx={{ width: 1000, height: 800 }}>
             {rooms.map((room: any, index: number) => (
               <ImageListItem key={room.id}>
                 <Link to={`/rooms/${room.id}`} key={room.id}>
