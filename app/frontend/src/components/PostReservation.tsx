@@ -11,7 +11,6 @@ import dayjs, { Dayjs } from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import axios from "axios";
-import qs from "qs";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -82,10 +81,20 @@ export const PostReservation = () => {
     } else if (!endTime) {
       setAddMessage("退室時間を選択してください");
       return;
+    } else if (startTime.format() === endTime.format()) {
+      setAddMessage("入室時間と退室時間が同じです")
+      return;
+    } else if (dayjs(startTime) > dayjs(endTime)) {
+      setAddMessage("入室時間が退室時間を越えています")
+      return;
     } else {
       postReservation(roomId, userId, sqlDate, sqlStartTime, sqlEndTime);
     }
   };
+  console.log(dayjs(startTime))
+  console.log(dayjs(endTime))
+  console.log(dayjs(startTime) < dayjs(endTime))
+  console.log(dayjs(startTime) > dayjs(endTime))
 
   // POST API呼び出し
   const postReservation = async (
@@ -95,18 +104,17 @@ export const PostReservation = () => {
     startTime: string,
     endTime: string
   ) => {
-    const postParam = qs.stringify({
+    const postParam = {
       room_id: roomId,
       user_id: userId,
       date: date,
       start_time: startTime,
       end_time: endTime,
-    });
+    };
 
     axios
       .post(ENDPOINT, postParam)
       .then((res) => {
-        // console.log(JSON.stringify(res.data));
         if (res.status === 200) {
           setAddMessage("予約が完了しました");
           setDate(new Date());
@@ -171,7 +179,7 @@ export const PostReservation = () => {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Box sx={{ m: 2, width: "25ch" }}>
           <TimePicker
-            label="開始時間"
+            label="入室時間"
             value={startTime}
             onChange={startTimeChange}
             renderInput={(params) => <TextField {...params} />}
@@ -180,7 +188,7 @@ export const PostReservation = () => {
 
         <Box sx={{ m: 2, width: "25ch" }}>
           <TimePicker
-            label="終了時間"
+            label="退室時間"
             value={endTime}
             onChange={endTimeChange}
             renderInput={(params) => <TextField {...params} />}
