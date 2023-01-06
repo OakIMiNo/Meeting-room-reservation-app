@@ -31,16 +31,16 @@ async def create_reservation(
 # 登録済みの予約一覧_GET
 async def get_reservations(
   db: AsyncSession
-  ) -> List[Tuple[int, str, str, datetime.datetime, datetime.datetime, int, int ,str, str]]:
+  ) -> List[Tuple[int, datetime.date, datetime.time, datetime.time, int, int ,str, str]]:
   result: Result = await (
     db.execute( # Result インスタンスはこの時点ではまだすべてのDBリクエストの結果を持たない
       select(
         reservation_model.Reservation.id,
-        reservation_model.Reservation.start_dateTime,
-        reservation_model.Reservation.end_dateTime,
+        
         reservation_model.Reservation.date,
-        reservation_model.Reservation.time,
-        reservation_model.Reservation.datetime,
+        reservation_model.Reservation.start_time,
+        reservation_model.Reservation.end_time,
+
         reservation_model.Reservation.room_id,
         reservation_model.Reservation.user_id,
         reservation_model.Room.name.label("room_name"),

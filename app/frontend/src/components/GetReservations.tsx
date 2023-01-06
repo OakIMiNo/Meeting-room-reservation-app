@@ -8,11 +8,9 @@ type Reservation = {
   room_id: number;
   user_name: string;
   room_name: string;
-  start_dateTime: string;
-  end_dateTime: string;
-  date: Date;
-  // time: Time;
-  // dateTime: datetime;
+  date: string;
+  start_time: string;
+  end_time: string;
 };
 
 export const GetReservations = () => {
@@ -23,21 +21,23 @@ export const GetReservations = () => {
   useEffect(() => {
     axios.get(ENDPOINT).then((res) => {
       setReservations(res.data);
+    })
+    .catch((error) => {
+      console.log(error.status)
     });
   }, []);
 
   return (
     <>
-      <h1>GET_all Reservations</h1>
+      <h1>予約一覧</h1>
       <Table>
         <TableBody>
           <TableCell>予約ID</TableCell>
-          <TableCell>ユーザーID</TableCell>
           <TableCell>ユーザー名</TableCell>
-          <TableCell>会議室ID</TableCell>
-          <TableCell>会議室名</TableCell>
-          <TableCell>開始日時</TableCell>
-          <TableCell>終了日時</TableCell>
+          <TableCell>会議室</TableCell>
+          <TableCell>予約日</TableCell>
+          <TableCell>開始時間</TableCell>
+          <TableCell>終了時間</TableCell>
         </TableBody>
       </Table>
       <div>
@@ -47,12 +47,11 @@ export const GetReservations = () => {
               <TableBody>
                 <TableRow>
                   <TableCell>{reservation.id}</TableCell>
-                  <TableCell>{reservation.user_id}</TableCell>
                   <TableCell>{reservation.user_name}</TableCell>
-                  <TableCell>{reservation.room_id}</TableCell>
                   <TableCell>{reservation.room_name}</TableCell>
-                  <TableCell>{reservation.start_dateTime}</TableCell>
-                  <TableCell>{reservation.end_dateTime}</TableCell>
+                  <TableCell>{reservation.date}</TableCell>
+                  <TableCell>{reservation.start_time}</TableCell>
+                  <TableCell>{reservation.end_time}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
@@ -60,7 +59,7 @@ export const GetReservations = () => {
           </>
         ))}
       </div>
-
+      <p>MUIのずれが気になる</p>
     </>
   );
 };

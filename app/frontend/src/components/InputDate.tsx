@@ -7,11 +7,8 @@ export function InputDate() {
   const [date, setDate] = React.useState<Date | null>(null);
 
   const handleChange = (newDate: Date | null) => {
-    setDate(newDate);
+    setDate(newDate)
   };
-
-  // 本日の日付を作成
-  const referenceDate = new Date();
 
   return (
     <>
@@ -23,11 +20,8 @@ export function InputDate() {
             onChange={handleChange}
             inputFormat="yyyy/MM/dd"
             mask="____/__/__"
-            renderInput={(params) =>
-              <TextField {...params} />
-            }
-            // 前日までが選択不可になる
-            minDate={referenceDate}
+            renderInput={(params) => <TextField {...params} />}
+            minDate={new Date()} // 本日以降のみ選択可
           />
         </Box>
       </LocalizationProvider>

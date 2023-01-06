@@ -8,11 +8,16 @@ class Reservation(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
 
-    start_dateTime = Column(String(100))
-    end_dateTime = Column(String(100))
     date = Column(Date)
-    time = Column(Time)
-    dateTime = Column(DateTime)
+    start_time = Column(Time)
+    end_time = Column(Time)
+
+    # room_id = Column(Integer, ForeignKey("rooms.id"))
+    # user_id = Column(Integer, ForeignKey("users.id"))
+
+    date = Column(Date)
+    start_time = Column(Time)
+    end_time = Column(Time)
 
     room_id = Column(Integer, ForeignKey("rooms.id"))
     user_id = Column(Integer, ForeignKey("users.id"))
