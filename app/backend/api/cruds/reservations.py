@@ -3,7 +3,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List, Tuple, Optional
 from sqlalchemy import select
 from sqlalchemy.engine import Result
+# from ..db import get_db
 
+import api.models.users as user_model
+import api.models.rooms as room_model
 import api.models.reservations as reservation_model
 import api.schemas.reservations as reservation_schema
 
@@ -13,6 +16,15 @@ async def create_reservation(
     db: AsyncSession, 
     reservation_create: reservation_schema.ReservationCreate
     ) -> reservation_model.Reservation:
+
+    # print("print")
+    # print(db) # <sqlalchemy.orm.session.AsyncSession object at 0x7f58a967f760>
+    # print(reservation_model.Reservation.room_id) # reservation.room_id
+    # print(get_db) # 予約済み <function get_db at 0x7f8171c81550>
+    # print(reservation_create) # APIのrequestパラメータ room_id=1 user_id=1 date=datetime.date(2023, 1, 6) start_time=datetime.time(10, 0) end_time=datetime.time(10, 0)
+    # print(reservation_create.room_id) # 1
+    # print("print")
+
     reservation = reservation_model.Reservation(**reservation_create.dict())
     db.add(reservation)
     await db.commit()
@@ -41,13 +53,13 @@ async def get_reservations(
         reservation_model.Reservation.start_time,
         reservation_model.Reservation.end_time,
 
-        reservation_model.Reservation.room_id,
-        reservation_model.Reservation.user_id,
-        reservation_model.Room.name.label("room_name"),
-        reservation_model.User.name.label("user_name"),
+        room_model.Room.id.label("room_id"),
+        user_model.User.id.label("user_id"),
+        room_model.Room.name.label("room_name"),
+        user_model.User.name.label("user_name"),
       )
-      .outerjoin(reservation_model.User)
-      .outerjoin(reservation_model.Room)
+      .outerjoin(user_model.User)
+      .outerjoin(room_model.Room)
     )
   )
   return result.all() # .all()で初めてすべてのDBレコードを取得
@@ -63,14 +75,16 @@ async def get_reservation(
     result: Result = await db.execute(
         select(
           reservation_model.Reservation,
-          reservation_model.Room.name.label("room_name"),
-          reservation_model.User.name.label("user_name"),
+          # room_model.Room.id.label("room_id"),
+          # user_model.User.id.label("user_id"),
+          room_model.Room.name.label("room_name"),
+          user_model.User.name.label("user_name"),
         )
         .filter(reservation_model.Reservation.id == id)
-        .outerjoin(reservation_model.User) #nullになる。リレーションできていない？
-        .outerjoin(reservation_model.Room) #nullになる。リレーションできていない？
-        # .outerjoin(reservation_model.User.name, reservation_model.User.id == reservation_model.Reservation.user_id) #nullになる。リレーションできていない？
-        # .outerjoin(reservation_model.Room.name, reservation_model.Room.id == reservation_model.Reservation.room_id) #nullになる。リレーションできていない？
+        .outerjoin(user_model.User) #nullになる。リレーションできていない？
+        .outerjoin(room_model.Room) #nullになる。リレーションできていない？
+        # .outerjoin(user_model.User.name, user_model.User.id == reservation_model.Reservation.user_id) #nullになる。リレーションできていない？
+        # .outerjoin(room_model.Room.name, room_model.Room.id == reservation_model.Reservation.room_id) #nullになる。リレーションできていない？
     )
     reservation: Optional[Tuple[reservation_model.Reservation]] = result.first()
     return reservation[0] if reservation is not None else None  
