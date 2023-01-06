@@ -3,7 +3,8 @@ import { useForm, Resolver } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth"
-// import style from "./../ styles / SignIn.module.css";
+import { Box } from "@mui/system";
+
 
 type FormValues = {
   userName: string;
@@ -55,28 +56,44 @@ const SignUp: React.FC = () =>
   //test@example.com test
   return (
     <>
-      <div className="App">
-        <h1>登録</h1>
+      <Box
+        sx={{
+          width: 350,
+          height: 150,
+          mx: "auto",
+          mt: 10,
+          p: 2,
+          display: "block",
+          border: "1px solid",
+          backgroundColor: "primary.dark",
+
+          "&:hover": {
+            backgroundColor: "primary.main",
+            opacity: [0.9, 0.8, 0.7],
+          },
+        }}
+      >
+        <h4>登録</h4>
         <form onSubmit={onSubmit}>
           <div>
-            <label>Your Name</label>
+            <label>Your Name  </label>
             <input {...register("userName")} placeholder="your name" />
             {/* {errors?.userName && <p>{errors.userName.message}</p>} */}
           </div>
           <div>
-            <label>email Address </label>
+            <label>email Address  </label>
             <input {...register("email")} placeholder="email address" />
             {/* {errors?.email && <p>{errors.email.message}</p>} */}
           </div>
           <div>
-            <label>Password </label>
+            <label>Password  </label>
             <input {...register("password")} placeholder="password" />
             {errors && <p>{errors.userName?.message}</p>}
           </div>
           <input type="submit" />
         </form>
-        {message}
-      </div>
+      </Box>
+      {message}
     </>
   );
 }

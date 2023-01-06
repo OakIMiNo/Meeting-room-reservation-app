@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useForm, Resolver } from "react-hook-form";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { useAuth } from "../context/auth"
-// import style from "./../ styles / SignIn.module.css";
+import Button from "@mui/material/Button";
+import { Box } from "@mui/system";
+import Grid from "@mui/material/Grid";
 
 type FormValues = {
   useName: string;
@@ -55,24 +57,43 @@ const SignIn: React.FC = () =>
   //test@example.com test
   return (
     <>
-      <div className="App">
-        <h1>SignIn</h1>
+      <Box
+        sx={{
+          width: 350,
+          height: 120,
+          mx: "auto",
+          mt: 10,
+          p: 2,
+          display: "block",
+          border: "1px solid",
+          backgroundColor: "primary.dark",
+
+          "&:hover": {
+            backgroundColor: "primary.main",
+            opacity: [0.9, 0.8, 0.7],
+          },
+        }}
+      >
+        <h4>ログイン</h4>
         <form onSubmit={onSubmit}>
           <div>
-            <label>email Address </label>
+            <label>email Address  </label>
             <input {...register("useName")} placeholder="email address" />
             {errors?.useName && <p>{errors.useName.message}</p>}
           </div>
 
           <div>
-            <label>Password</label>
+            <label>Password  </label>
             <input {...register("password")} placeholder="password" />
           </div>
 
           <input type="submit" />
         </form>
-        {message}
-      </div>
+        <Link to="/signup">
+          <Button>新規会員登録はこちら</Button>
+        </Link>
+      </Box>
+      {message}
     </>
   );
 }

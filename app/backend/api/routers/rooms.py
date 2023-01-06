@@ -16,11 +16,11 @@ async def get_rooms(db: AsyncSession = Depends(get_db)):
 
 
 @router.get("/rooms/{room_id}")
-async def get_rooms(
+async def get_room(
     room_id: int, 
     db: AsyncSession = Depends(get_db)
     ):
-    return await rooms_cruds.get_rooms(room_id, db)
+    return await rooms_cruds.get_room(room_id, db)
 
 
 @router.post("/rooms")

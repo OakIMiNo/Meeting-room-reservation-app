@@ -18,7 +18,7 @@ export default function ButtonAppBar()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleHome = () => navigate("/")
+  const handleHome = () => navigate("/rooms")
   const handleSignin = () => navigate("/signin")
   const handleMyPage = () => navigate("/mypage")
   const handleAdmin = () => navigate("/admin")
