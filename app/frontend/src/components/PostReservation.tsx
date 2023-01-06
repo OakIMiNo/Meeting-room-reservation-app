@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { isNotEmittedStatement } from "typescript";
 import { Box, TextField, Button } from "@mui/material";
 import {
   LocalizationProvider,
@@ -13,7 +12,6 @@ import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import axios from "axios";
 import qs from "qs";
-import { GetReservations } from "./GetReservations";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -56,7 +54,7 @@ export const PostReservation = () => {
   // 時間が入力されたらAPI用に型変更後、表示用にsetDate
   const startTimeChange = (time: Dayjs | null) => {
     if (time !== null) {
-      const strTime = time.format().split("T")[1].substr(0, 5);
+      const strTime = time.format().split("T")[1].substr(0, 7).concat("0");
       setSqlStartTime(strTime); // 01:05:00
     }
     setStartTime(time); // M {$L: 'en', $u: undefined, $d: Fri Jan 06 2023 09:00:00 GMT+0900 (GMT+09:00), $x: {…}, $y: 2023, …}
@@ -64,10 +62,10 @@ export const PostReservation = () => {
 
   const endTimeChange = (time: Dayjs | null) => {
     if (time !== null) {
-      const strTime = time.format().split("T")[1].substr(0, 5);
-      setSqlEndTime(strTime); // 01:05
+      const strTime = time.format().split("T")[1].substr(0, 7).concat("0");
+      setSqlEndTime(strTime);
     }
-    setEndTime(time); // M {$L: 'en', $u: undefined, $d: Fri Jan 06 2023 09:00:00 GMT+0900 (GMT+09:00), $x: {…}, $y: 2023, …}
+    setEndTime(time);
   };
 
   // 追加ボタンをクリックで、API呼び出し関数に値を渡す
@@ -108,7 +106,7 @@ export const PostReservation = () => {
     axios
       .post(ENDPOINT, postParam)
       .then((res) => {
-        console.log(JSON.stringify(res.data));
+        // console.log(JSON.stringify(res.data));
         if (res.status === 200) {
           setAddMessage("予約が完了しました");
           setDate(new Date());
