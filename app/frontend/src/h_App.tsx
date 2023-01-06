@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import MyPage from "./pages/Mypage";
 // import Header from "./components/Header";
-import Home from "./pages/Home";
+import RoomsList from "./pages/RoomsList";
 import { AuthProvider } from "./context/auth";
 
 // Haruko test
@@ -19,7 +19,7 @@ const App = (): JSX.Element => {
       {/* ページ作成したら追加する */}
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<RoomsList />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/cancel" element={<Cancel />} />

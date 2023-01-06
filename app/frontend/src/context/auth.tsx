@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState, useContext } from "react";
+import React, { createContext, useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -9,14 +9,10 @@ export const useAuth = () => useContext(AuthContext)
 export const AuthProvider = (props:any) =>
 {
   const [user, setUser] = useState<any>(null);
-  //loading中はloading画面を表示したいけど上手くいかないので保留
-  const [ isLoading, setLoading ] = useState<boolean>(true)
   const navigate = useNavigate();
   
   const isAuthenticated = () =>
   {
-    setLoading(false);
-    console.log("isAuthenticated", isLoading);
     const token = localStorage.getItem("token")
     console.log(token)
           if (token) {
@@ -30,15 +26,10 @@ export const AuthProvider = (props:any) =>
               {
                 setUser(null);
                 navigate("/signin");
-              });
-          // } else {
-          //   setUser(null)
-          //   navigate("/signin")
+              })
     }
   }
   
-  console.log("isLoading", isLoading)
-  console.log(user)
 
   const isRegister = async (userName: string, email: string, password: string) =>
   {
@@ -67,31 +58,20 @@ export const AuthProvider = (props:any) =>
       .post("http://localhost:8080/token", params, config)
       .then((res: any) =>
       {
-        console.log("res",res)
-        console.log("token", res.data.access_token);
         localStorage.setItem("token", res.data.access_token)
-        console.log(localStorage)
       });
-    // const token = response.data.access_token
-
-    // if (token)
-    // {
-    //   localStorage.setItem("token", token);
-    //   console.log(localStorage)
-    // }
   }
   
   const logout = () =>
   {
     localStorage.removeItem("token")
     setUser(null)
-    //
     navigate("/signin")
   }
     
   return (
     <AuthContext.Provider
-      value={{ user, login, logout, isAuthenticated, isRegister, isLoading }}
+      value={{ user, login, logout, isAuthenticated, isRegister }}
     >
       {/* {isLoading ? <h1>loading</h1> : props.children} */}
       {props.children}

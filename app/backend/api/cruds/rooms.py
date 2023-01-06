@@ -3,6 +3,8 @@ from fastapi import APIRouter, Depends
 import api.models.rooms as rooms_model
 import api.schemas.rooms as rooms_schema
 import api.cruds.rooms as rooms_cruds
+import api.models.areas as areas_model
+
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.engine import Result
 from sqlalchemy import select, update
@@ -42,14 +44,15 @@ async def get_all_rooms(
             rooms_model.Room.img_url,
             rooms_model.Room.address,
             rooms_model.Room.description,
-            rooms_model.Room.disabled,
+            # rooms_model.Room.disabled,
+            rooms_model.Room.area_id,
         ).filter(
             rooms_model.Room.disabled == False
         )
     )
     rooms = []
     for row in result:
-      keys = ('id', 'name', 'capacity', 'img_url', 'address', 'description')
+      keys = ('id', 'name', 'capacity', 'img_url', 'address', 'description','area_id')
       room = dict(zip(keys, row))
       print("room", room)
       rooms.append(room)
@@ -70,7 +73,7 @@ async def get_room(
             rooms_model.Room.img_url,
             rooms_model.Room.address,
             rooms_model.Room.description,
-            rooms_model.Room.disabled,
+            rooms_model.Room.area_id,
         ).filter(
             rooms_model.Room.disabled == False
         ).filter(
@@ -78,7 +81,7 @@ async def get_room(
         )
     )
 
-    keys = ('id', 'name', 'capacity', 'img_url', 'address', 'description')
+    keys = ('id', 'name', 'capacity', 'img_url', 'address', 'description','area_id')
     room = dict(zip(keys, result.first()))
     print("get_room",room)
     return room
