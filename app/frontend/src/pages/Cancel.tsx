@@ -10,7 +10,7 @@ const Cancel: React.FC = () => {
   return (
     <>
       <div className="App">
-        <h1>Cancel</h1>
+        <h1>予約のキャンセル</h1>
         {/* <h1>{user.username}</h1> */}
         <DeleteReservation />
       </div>

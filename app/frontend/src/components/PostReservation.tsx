@@ -202,8 +202,6 @@ export const PostReservation = () => {
 
       <h3>{addMessage}</h3>
       <br />
-      <GetReservations />
-      <br />
 
       <p>開始・終了時間の差分から利用時間を出したい</p>
       <p>ヘッダーなどを追加してpages/AddReservation.tsxでページを作成したい</p>

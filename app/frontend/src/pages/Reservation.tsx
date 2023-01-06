@@ -9,7 +9,7 @@ const Reservation: React.FC = () => {
   return (
     <>
       <div className="App">
-        <h1>Reservation</h1>
+        <h1>新規予約</h1>
         {/* <h1>{user.username}</h1> */}
         <PostReservation />
       </div>
