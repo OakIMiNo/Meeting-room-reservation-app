@@ -7,20 +7,12 @@ class Reservation(Base):
     __tablename__="reservations"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-
-    date = Column(Date)
-    start_time = Column(Time)
-    end_time = Column(Time)
-
-    # room_id = Column(Integer, ForeignKey("rooms.id"))
-    # user_id = Column(Integer, ForeignKey("users.id"))
-
-    date = Column(Date)
-    start_time = Column(Time)
-    end_time = Column(Time)
-
     room_id = Column(Integer, ForeignKey("rooms.id"))
     user_id = Column(Integer, ForeignKey("users.id"))
+
+    date = Column(Date)
+    start_time = Column(Time)
+    end_time = Column(Time)
 
     room = relationship("Room", back_populates="reservations")
     user = relationship("User", back_populates="reservations")

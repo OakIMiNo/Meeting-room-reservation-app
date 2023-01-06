@@ -5,7 +5,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import MyPage from "./pages/Mypage";
 import Admin from "./pages/Admin";
-import Home from "./pages/Home";
+import RoomsList from "./pages/RoomsList";
 import { AuthProvider } from "./context/auth"
 import Room from "./pages/Room";
 
@@ -20,7 +20,7 @@ const App = (): JSX.Element => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/rooms" element={<Home />} />
+          <Route path="/rooms" element={<RoomsList />} />
           <Route path="/rooms" element={<Room />}>
             <Route path="/rooms/:roomId" element={<Room />} />
           </Route>

@@ -5,20 +5,26 @@ import { useAuth } from "../context/auth";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useParams } from "react-router-dom";
+import { PostReservation } from "../components/PostReservation";
+
 
 import Header from "../components/Header";
 import Container from "@mui/material/Container";
 
-const Room: React.FC = (props) => {
-  const [room, setRoom] = useState([])
+const Room: React.FC = (props) =>
+{
+  const { user, isAuthenticated } = useAuth();
+  const [room, setRoom] = useState<any>([])
   const { roomId } = useParams();
 
-  useEffect(() =>
+  useEffect( () =>
   {
-    
+    console.log(user)
     axios
       .get(`http://localhost:8080/rooms/${roomId}`)
       .then((res) => setRoom(res.data));
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
   console.log(roomId);
@@ -29,19 +35,18 @@ const Room: React.FC = (props) => {
     <>
       <Header />
       <Container maxWidth="sm">
-        <Box
+        {/* <Box
           sx={{
             width: 300,
             height: 300,
-            backgroundColor: "primary.dark",
-            "&:hover": {
-              backgroundColor: "primary.main",
-              opacity: [0.9, 0.8, 0.7],
-            },
           }}
-        >
-          <img src={room.img_url} />
-        </Box>
+        > */}
+          <h4>{room.name}</h4>
+          <h4>上限人数: {room.capacity}</h4>
+          <h4>住所: {room.address}</h4>
+          <h4>{room.description}</h4>
+        {/* </Box> */}
+      <PostReservation/>
       </Container>
     </>
   );

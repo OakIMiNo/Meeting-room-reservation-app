@@ -86,7 +86,6 @@ const SignIn: React.FC = () =>
             <label>Password  </label>
             <input {...register("password")} placeholder="password" />
           </div>
-
           <input type="submit" />
         </form>
         <Link to="/signup">
