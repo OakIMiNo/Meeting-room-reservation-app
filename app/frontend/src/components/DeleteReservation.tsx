@@ -61,7 +61,7 @@ export const DeleteReservation = () => {
       </Button>
       <h3>{cancelMessage}</h3>
       <br />
-      <p>（指定したidの予約をgetで表示したい）</p>
+      {/* <p>（指定したidの予約をgetで表示したい）</p> */}
     </>
   );
 };

@@ -11,12 +11,15 @@ import dayjs, { Dayjs } from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import axios from "axios";
+import { useAuth } from "./../context/auth";
+// import React { FCDispatch, SetStateAction } from "react";
+import { FC } from "react";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault("Asia/Tokyo");
 
-export const PostReservation = () => {
+export const PostReservation:FC<any> = (props) => {
   const ENDPOINT = "http://localhost:8080/reservation/";
 
   const [date, setDate] = React.useState<Date | null>(null);
@@ -30,6 +33,9 @@ export const PostReservation = () => {
   const [sqlEndTime, setSqlEndTime] = useState("");
   const [addMessage, setAddMessage] = useState("");
 
+  const { user, logout, isAuthenticated } = useAuth();
+  
+console.log(props)
   // 日付が入力されたらAPI用に型変更後、表示用にsetDate
   const dateChange = (newDate: Date | null) => {
     if (newDate !== null) {
@@ -149,6 +155,7 @@ export const PostReservation = () => {
         id="outlined-required"
         label="会議室ID"
         variant="outlined"
+        placeholder={props.roomId}
         value={roomId}
         onChange={(event) => setRoomId(event.target.value)}
       />
@@ -207,11 +214,11 @@ export const PostReservation = () => {
       </Button>
 
       <h3>{addMessage}</h3>
-      <br />
+      {/* <br />
 
       <p>開始・終了時間の差分から利用時間を出したい</p>
       <p>ヘッダーなどを追加してpages/AddReservation.tsxでページを作成したい</p>
-      <br />
+      <br /> */}
     </>
   );
 };

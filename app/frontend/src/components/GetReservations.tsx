@@ -59,7 +59,7 @@ export const GetReservations = () => {
           </>
         ))}
       </div>
-      <p>MUIのずれが気になる</p>
+      {/* <p>MUIのずれが気になる</p> */}
     </>
   );
 };
