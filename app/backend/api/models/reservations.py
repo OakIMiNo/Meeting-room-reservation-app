@@ -7,18 +7,15 @@ class Reservation(Base):
     __tablename__="reservations"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
+    room_id = Column(Integer, ForeignKey("rooms.id"))
+    user_id = Column(Integer, ForeignKey("users.id"))
 
-    start_dateTime = Column(String(100))
-    end_dateTime = Column(String(100))
     date = Column(Date)
-    time = Column(Time)
-    dateTime = Column(DateTime)
+    start_time = Column(Time)
+    end_time = Column(Time)
 
-    # room_id = Column(Integer, ForeignKey("rooms.id"))
-    # user_id = Column(Integer, ForeignKey("users.id"))
-
-    # room = relationship("Room", back_populates="reservations")
-    # user = relationship("User", back_populates="reservations")
+    room = relationship("Room", back_populates="reservations")
+    user = relationship("User", back_populates="reservations")
 # Column 第一引数にカラムの型、第２引数以降にカラムの設定。
 
 
