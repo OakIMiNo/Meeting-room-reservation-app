@@ -41,12 +41,13 @@ const Room: React.FC = (props) =>
             height: 300,
           }}
         > */}
-          <h4>{room.name}</h4>
-          <h4>上限人数: {room.capacity}</h4>
-          <h4>住所: {room.address}</h4>
-          <h4>{room.description}</h4>
+        <h4>ID: {room.id}</h4>
+        <h4>{room.name}</h4>
+        <h4>上限人数: {room.capacity}</h4>
+        <h4>住所: {room.address}</h4>
+        <h4>{room.description}</h4>
         {/* </Box> */}
-      <PostReservation/>
+        <PostReservation roomNo={roomId} />
       </Container>
     </>
   );

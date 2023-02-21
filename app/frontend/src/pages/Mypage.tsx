@@ -55,7 +55,7 @@ const MyPage: React.FC = () => {
           <div>
             <Button onClick={handlePutDisabled}>退会する</Button>
             <h4>
-              会員名： {user.name} 登録連絡先: {user.email}
+              会員ID: {user.id} 会員名： {user.name} 登録連絡先: {user.email}
             </h4>
           </div>
         )}
