@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useForm, Resolver } from "react-hook-form";
 import axios from "axios";
-import { useNavigate,Link } from "react-router-dom";
-import { useAuth } from "../context/auth"
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/auth";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/system";
 import Grid from "@mui/material/Grid";
@@ -26,11 +26,10 @@ const resolver: Resolver<FormValues> = async (values) => {
   };
 };
 
-const SignIn: React.FC = () =>
-{
+const SignIn: React.FC = () => {
   const { user, login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const [message,setMessage] = useState("")
+  const [message, setMessage] = useState("");
 
   // console.log(isAuthenticated);
 
@@ -43,13 +42,11 @@ const SignIn: React.FC = () =>
   });
   const onSubmit = handleSubmit(async (data) => {
     await login(data.useName, data.password)
-      .then((res:any) =>
-      {
-        navigate("/rooms")
+      .then((res: any) => {
+        navigate("/rooms");
       })
-      .catch((e: any) =>
-      {
-        setMessage("emailもしくはpasswordの入力誤り、あるいは退会されています")
+      .catch((e: any) => {
+        setMessage("emailもしくはpasswordの入力誤り、あるいは退会されています");
       });
   });
 
@@ -76,13 +73,13 @@ const SignIn: React.FC = () =>
         <h4>ログイン</h4>
         <form onSubmit={onSubmit}>
           <div>
-            <label>email Address  </label>
+            <label>email Address </label>
             <input {...register("useName")} placeholder="email address" />
             {errors?.useName && <p>{errors.useName.message}</p>}
           </div>
 
           <div>
-            <label>Password  </label>
+            <label>Password </label>
             <input {...register("password")} placeholder="password" />
           </div>
           <input type="submit" />
@@ -94,6 +91,6 @@ const SignIn: React.FC = () =>
       {message}
     </>
   );
-}
+};
 
-export default SignIn
+export default SignIn;
