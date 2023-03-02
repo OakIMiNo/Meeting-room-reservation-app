@@ -6,9 +6,8 @@ import SignUp from "./pages/SignUp";
 import MyPage from "./pages/Mypage";
 import Admin from "./pages/Admin";
 import RoomsList from "./pages/RoomsList";
-import { AuthProvider } from "./context/auth"
+import { AuthProvider } from "./context/auth";
 import Room from "./pages/Room";
-
 
 const App = (): JSX.Element => {
   return (
