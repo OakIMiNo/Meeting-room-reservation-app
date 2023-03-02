@@ -19,7 +19,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault("Asia/Tokyo");
 
-export const PostReservation:FC<any> = (props) => {
+export const PostReservation: FC<any> = (props) => {
   const ENDPOINT = "http://localhost:8080/reservation/";
 
   const [date, setDate] = React.useState<Date | null>(null);
@@ -34,8 +34,8 @@ export const PostReservation:FC<any> = (props) => {
   const [addMessage, setAddMessage] = useState("");
 
   const { user, logout, isAuthenticated } = useAuth();
-  
-console.log(props)
+
+  console.log(props);
   // 日付が入力されたらAPI用に型変更後、表示用にsetDate
   const dateChange = (newDate: Date | null) => {
     if (newDate !== null) {
@@ -88,19 +88,19 @@ console.log(props)
       setAddMessage("退室時間を選択してください");
       return;
     } else if (startTime.format() === endTime.format()) {
-      setAddMessage("入室時間と退室時間が同じです")
+      setAddMessage("入室時間と退室時間が同じです");
       return;
     } else if (dayjs(startTime) > dayjs(endTime)) {
-      setAddMessage("入室時間が退室時間を越えています")
+      setAddMessage("入室時間が退室時間を越えています");
       return;
     } else {
       postReservation(roomId, userId, sqlDate, sqlStartTime, sqlEndTime);
     }
   };
-  console.log(dayjs(startTime))
-  console.log(dayjs(endTime))
-  console.log(dayjs(startTime) < dayjs(endTime))
-  console.log(dayjs(startTime) > dayjs(endTime))
+  console.log(dayjs(startTime));
+  console.log(dayjs(endTime));
+  console.log(dayjs(startTime) < dayjs(endTime));
+  console.log(dayjs(startTime) > dayjs(endTime));
 
   // POST API呼び出し
   const postReservation = async (

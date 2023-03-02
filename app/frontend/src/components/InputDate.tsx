@@ -7,7 +7,7 @@ export function InputDate() {
   const [date, setDate] = React.useState<Date | null>(null);
 
   const handleChange = (newDate: Date | null) => {
-    setDate(newDate)
+    setDate(newDate);
   };
 
   return (

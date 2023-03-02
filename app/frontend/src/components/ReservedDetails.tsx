@@ -2,8 +2,13 @@ import React from "react";
 import { Table, TableBody, TableCell, TableRow } from "@mui/material";
 
 const ReservedDetails: React.FC = () => {
-  
-  const selectedBooking = {room: "room1", user: "Haruko", date: "2023/1/1", start_time: "10:00", end_time:"11:00"};
+  const selectedBooking = {
+    room: "room1",
+    user: "Haruko",
+    date: "2023/1/1",
+    start_time: "10:00",
+    end_time: "11:00",
+  };
   const rows = [
     { item: "Room", data: selectedBooking.room },
     { item: "user", data: selectedBooking.user },
