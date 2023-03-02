@@ -13,51 +13,50 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Box from "@mui/material/Box";
 
-
 const Admin = () => {
   const { user, isAuthenticated, isLoading } = useAuth();
   const [message, setMessage] = useState("");
-  const [rooms, setRooms] = useState<any>([])
-  const navigate = useNavigate()
+  const [rooms, setRooms] = useState<any>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    isAuthenticated()
-      
+    isAuthenticated();
+
     console.log("通過");
     axios
-    .get("http://localhost:8080/rooms")
-    .then((res) => setRooms(res.data))
-    .catch(e => console.log(e))
+      .get("http://localhost:8080/rooms")
+      .then((res) => setRooms(res.data))
+      .catch((e) => console.log(e));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-    const [selectRoom, setSelectRoom] = useState()
-    
-    const handleChange = (event:any) =>
-    {
-        setSelectRoom(event.target.value);
-    } 
+  const [selectRoom, setSelectRoom] = useState();
 
-    const deleteRoom = () =>
-    {
-        console.log(selectRoom);
-        const room_id = selectRoom;
-        const body = { disabled: "true" };
-        axios
-          .put(`http://localhost:8080/rooms/${room_id}`, body)
-            .then((res) => setMessage("削除しました"))
-            .then(res => navigate("/admin"))
-          .catch((e) => console.log(e))
-    }
+  const handleChange = (event: any) => {
+    setSelectRoom(event.target.value);
+  };
+
+  const deleteRoom = () => {
+    console.log(selectRoom);
+    const room_id = selectRoom;
+    const body = { disabled: "true" };
+    axios
+      .put(`http://localhost:8080/rooms/${room_id}`, body)
+      .then((res) => setMessage("削除しました"))
+      .then((res) => navigate("/admin"))
+      .catch((e) => console.log(e));
+  };
 
   return (
     <>
       <Header />
-      <Box sx={{
-        flexDirection: "column-reverse",
-        mx: 'auto',
-        p: 2
-      }}>
+      <Box
+        sx={{
+          flexDirection: "column-reverse",
+          mx: "auto",
+          p: 2,
+        }}
+      >
         <FormControl>
           <FormLabel id="demo-radio-buttons-group-label">
             管理者権限:会議室削除機能
@@ -84,6 +83,6 @@ const Admin = () => {
       </Box>
     </>
   );
-}
+};
 
 export default Admin;
