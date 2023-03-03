@@ -15,7 +15,7 @@ const App = (): JSX.Element => {
       {/* ページ作成したら追加する */}
       <AuthProvider>
         <Routes>
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/admin" element={<Admin />} />
