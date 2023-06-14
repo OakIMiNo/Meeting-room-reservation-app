@@ -2,8 +2,6 @@ import React from "react";
 import { FormControl, InputLabel, Select } from "@mui/material";
 
 const SelectForm: React.FC = () => {
-
-
   return (
     <>
       <FormControl>

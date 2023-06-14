@@ -6,9 +6,8 @@ import SignUp from "./pages/SignUp";
 import MyPage from "./pages/Mypage";
 import Admin from "./pages/Admin";
 import RoomsList from "./pages/RoomsList";
-import { AuthProvider } from "./context/auth"
+import { AuthProvider } from "./context/auth";
 import Room from "./pages/Room";
-
 
 const App = (): JSX.Element => {
   return (
@@ -16,7 +15,7 @@ const App = (): JSX.Element => {
       {/* ページ作成したら追加する */}
       <AuthProvider>
         <Routes>
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/admin" element={<Admin />} />

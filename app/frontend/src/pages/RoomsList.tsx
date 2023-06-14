@@ -17,24 +17,21 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 const RoomsList: React.FC = () => {
-  const [rooms, setRooms] = useState([])
+  const [rooms, setRooms] = useState([]);
   const [areas, setAreas] = useState([]);
   const { user, isAuthenticated } = useAuth();
-  
 
-  useEffect(() =>
-  {
-      axios
-        .get("http://localhost:8080/rooms")
-        .then((res) => setRooms(res.data))
-        .then((res) =>
-        {
-          axios.get("http://localhost:8080/areas")
-          .then(res => setAreas(res.data))
-        })
-  }, [])
-  
-    
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/rooms")
+      .then((res) => setRooms(res.data))
+      .then((res) => {
+        axios
+          .get("http://localhost:8080/areas")
+          .then((res) => setAreas(res.data));
+      });
+  }, []);
+
   return (
     <>
       <Header />
@@ -68,6 +65,6 @@ const RoomsList: React.FC = () => {
       </Container>
     </>
   );
-}
+};
 
 export default RoomsList;

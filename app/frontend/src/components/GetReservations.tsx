@@ -19,12 +19,14 @@ export const GetReservations = () => {
   const [reservations, setReservations] = useState([]);
 
   useEffect(() => {
-    axios.get(ENDPOINT).then((res) => {
-      setReservations(res.data);
-    })
-    .catch((error) => {
-      console.log(error.status)
-    });
+    axios
+      .get(ENDPOINT)
+      .then((res) => {
+        setReservations(res.data);
+      })
+      .catch((error) => {
+        console.log(error.status);
+      });
   }, []);
 
   return (
